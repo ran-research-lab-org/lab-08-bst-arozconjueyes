@@ -5,6 +5,7 @@
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
+#include<queue>
 using namespace std;
 
 template <typename T> string toStr(const T &value) {
@@ -111,10 +112,26 @@ public:
   // Remove x from the tree. Nothing is done if x is not found.
   void remove(const Comparable &x) { remove(x, root); }
 
-  string BFT() const {
+  string BFT() const{
     string st;
+    int count = 0;
+    queue<pair<int, BinaryNode*>> q; //{nivel, y el puntero}
+    q.push({count,root});
+    while(!q.empty()){
+      auto u = q.front(); q.pop();
+      count++;//Nivel en general
+      st = st + toStr(u.second->element);
+      if((u.second)->left != nullptr){
+        q.push({u.first + 1, (u.second)->left});
+      }
+      if((u.second)->right != nullptr){
+        q.push({u.first + 1, (u.second)->right});
+      }
+    }
     return st;
   }
+
+  
 
 private:
   struct BinaryNode {
