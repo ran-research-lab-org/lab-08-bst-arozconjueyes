@@ -120,7 +120,7 @@ public:
     while(!q.empty()){
       auto u = q.front(); q.pop();
       count++;//Nivel en general
-      st = st + toStr(u.second->element);
+      st += "[" + toStr(u.second->element) + "]";
       if((u.second)->left != nullptr){
         q.push({u.first + 1, (u.second)->left});
       }
