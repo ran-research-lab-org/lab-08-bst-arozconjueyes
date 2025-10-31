@@ -114,20 +114,34 @@ public:
 
   string BFT() const{
     string st;
-    int count = 0;
+    int bef_level = 0;
     queue<pair<int, BinaryNode*>> q; //{nivel, y el puntero}
-    q.push({count,root});
+    q.push({0,root});
     while(!q.empty()){
       auto u = q.front(); q.pop();
-      count++;//Nivel en general
-      st += "[" + toStr(u.second->element) + "]";
+      
+
+
+      if(u.first == 0){
+        st = "[[" + toStr(u.second->element);
+      }
+
+      else if(bef_level < u.first){
+        st += "],[" + toStr(u.second->element);
+      }
+      else if(bef_level == u.first){
+      st += "," + toStr(u.second->element);
+      }
+      
       if((u.second)->left != nullptr){
         q.push({u.first + 1, (u.second)->left});
       }
       if((u.second)->right != nullptr){
         q.push({u.first + 1, (u.second)->right});
       }
+      bef_level = u.first;
     }
+    st += "]]";
     return st;
   }
 
