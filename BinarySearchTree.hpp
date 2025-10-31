@@ -113,15 +113,20 @@ public:
   void remove(const Comparable &x) { remove(x, root); }
 
   string BFT() const{
+    //Variables
     string st;
     int bef_level = 0;
     queue<pair<int, BinaryNode*>> q; //{nivel, y el puntero}
+
+    //Añado el primer nodo al queue
     q.push({0,root});
     while(!q.empty()){
+
+    //Guardo el primer elmento del queue
       auto u = q.front(); q.pop();
       
 
-
+    //Logica de lo strings
       if(u.first == 0){
         st = "[[" + toStr(u.second->element);
       }
@@ -132,7 +137,7 @@ public:
       else if(bef_level == u.first){
       st += "," + toStr(u.second->element);
       }
-      
+      // Va por los subarboles
       if((u.second)->left != nullptr){
         q.push({u.first + 1, (u.second)->left});
       }
